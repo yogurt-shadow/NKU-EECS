@@ -1,0 +1,59 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/25/6                                                             Page     1-1
+
+
+       1 0000				DATA    SEGMENT	 
+       2 0000  49 20 6C 6F 76 65 20	BUFFER	DB 'I love Nankai Acm.',0AH,0DH
+					,'I love friendship.','$' 
+       3       4E 61 6E 6B 61 69 20	
+       4       41 63 6D 2E 0A 0D 49	
+       5       20 6C 6F 76 65 20 66	
+       6       72 69 65 6E 64 73 68	
+       7       69 70 2E 24		
+       8 0027				DATA    ENDS 
+       9 0000				STACK   SEGMENT  STACK PARA STACK 'STAC
+					K'			 
+      10					 
+      11 0000				STACK  ENDS 
+      12 0000				CODE   SEGMENT 
+      13					ASSUME  DS:DATA,CS:CODE,SS:STAC
+					K 
+      14 0000  B8 ---- R		START:  MOV     AX, SEG DATA 
+      15 0003  8E D8			        MOV     DS, AX 
+      16					 
+      17 0005  BA 0000 R		        MOV     DX, OFFSET BUFFER 
+      18 0008  B4 09				MOV AH,9 
+      19 000A  CD 21				INT 21H 
+      20 000C  B4 4C				MOV AH,4CH 
+      21 000E  CD 21				INT 21H 
+      22 0010				CODE    ENDS 
+      23				        END  START 
+Microsoft (R) Macro Assembler Version 5.00                  4/25/6                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0010	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0027	PARA	NONE	
+STACK  . . . . . . . . . . . . .  	0000	PARA	STACK	'STACK'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BUFFER . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  F9		
+
+
+     18 Source  Lines
+     18 Total   Lines
+      7 Symbols
+
+  49562 + 451430 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

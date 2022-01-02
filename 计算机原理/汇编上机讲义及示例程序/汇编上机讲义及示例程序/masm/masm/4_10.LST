@@ -1,0 +1,77 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/21/9                                                             Page     1-1
+
+
+ 0000				DATA   SEGMENT 
+ 0000  31 32 33 34 35 36 37	STRING DB    '1234567890' 
+       38 39 30			
+ = 000A				COUNT  EQU  $ - STRING 
+ 000A				DATA   ENDS 
+				 
+ 0000				STACK   SEGMENT PARA STACK 'STACK' 
+ 0000  0064[			       DB 100 DUP(?) 
+	    ??			
+			 ]	
+				
+ 0064				STACK   ENDS 
+				 
+ 0000				CODE    SEGMENT 
+				       ASSUME  CS:CODE,DS:DATA,ES:DATA,SS:STACK
+				 
+ 0000				START   PROC    FAR 
+ 0000  1E			BEGIN:  PUSH   DS 
+ 0001  B8 0000			        MOV    AX,0 
+ 0004  50			        PUSH   AX 
+ 0005  B8 ---- R		        MOV    AX,DATA 
+ 0008  8E D8				MOV    DS,AX	;DATA¡úAX 
+ 000A  8E C0			        MOV    ES,AX 
+ 000C  8D 36 0000 R			LEA    SI,STRING   ;SET ADDRESS POINTER
+				 
+ 0010  B9 000A				MOV    CX,COUNT  
+ 0013  AC			AGAIN:  LODSB    ; 
+ 0014  22 C0				AND    AL,AL 
+ 0016  7A 05				JPE    NEXT	 
+ 0018  0C 80				OR     AL,80H 
+ 001A  88 44 FF				MOV    [SI-1],AL 
+ 001D  49			NEXT:   DEC    CX; 
+ 001E  75 F3				JNZ   AGAIN 
+ 0020  CB				RET 
+ 0021				START   ENDP 
+ 0021				CODE	ENDS	; 
+				END	BEGIN 
+Microsoft (R) Macro Assembler Version 5.00                  4/21/9                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0021	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	000A	PARA	NONE	
+STACK  . . . . . . . . . . . . .  	0064	PARA	STACK	'STACK'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+AGAIN  . . . . . . . . . . . . .  	L NEAR	0013	CODE
+
+BEGIN  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+COUNT  . . . . . . . . . . . . .  	NUMBER	000A	
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	001D	CODE
+
+START  . . . . . . . . . . . . .  	F PROC	0000	CODE	Length = 0021
+STRING . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  4_10		
+
+
+     31 Source  Lines
+     31 Total   Lines
+     11 Symbols
+
+  50100 + 416188 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

@@ -1,0 +1,65 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/16/9                                                             Page     1-1
+
+
+ 0000				DATA 	SEGMENT 
+ 0000  FB			       X  DB  -5 
+ 0001  ??			       Y  DB  ? 
+ 0002				DATA 	ENDS 
+				 
+ 0000				CODE 	SEGMENT 
+				     	ASSUME   CS:CODE,DS:DATA 
+ 0000  B8 ---- R		START:     MOV  AX,DATA 
+ 0003  8E D8			           MOV  DS,AX       ;³õÊ¼»¯ 
+ 0005  A0 0000 R		     	   MOV  AL,X        ;XÈ¡µ½ALÖÐ 
+ 0008  3C 00				   CMP  AL,0        ;AlÖÐÄÚÈÝºÍ0±È½Ï 
+ 000A  7D 05			           JGE  BIG         ;´óÓÚµÈÓÚ0£¬×ªBIG 
+ 000C  B3 FF			           MOV  BL,-1       ;·ñÔòÎª¸ºÊý£¬£­1ËÍB
+				L 
+ 000E  EB 0A 90				   JMP  EXIT        ;×ªµ½½áÊøÎ»ÖÃ 
+ 0011  74 05			BIG:       JE   EE          ;AlÖÐÄÚÈÝÊÇ·ñÎª0£¬Î
+				ª0×ªEE 
+ 0013  B3 01			           MOV  BL,1        ;·ñÔòÎª´óÓÚ0£¬1ËÍBL
+				 
+ 0015  EB 03 90			     	   JMP  EXIT        ;×ªµ½½áÊøÎ»ÖÃ 
+ 0018  B3 00			EE:  	   MOV  BL,0        ;0ËÍBL 
+ 001A  88 1E 0001 R		EXIT: 	   MOV  Y,BL        ;BLÖÐÄÚÈÝËÍYµ¥Ôª 
+ 001E  B4 4C			           MOV  AH,4CH 
+ 0020  CD 21			           INT  21H    	    ;³ÌÐò½áÊø 
+ 0022				CODE    ENDS 
+				        END  START 	    ;»ã±à½áÊø 
+Microsoft (R) Macro Assembler Version 5.00                  4/16/9                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0022	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0002	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BIG  . . . . . . . . . . . . . .  	L NEAR	0011	CODE
+
+EE . . . . . . . . . . . . . . .  	L NEAR	0018	CODE
+EXIT . . . . . . . . . . . . . .  	L NEAR	001A	CODE
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+X  . . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+Y  . . . . . . . . . . . . . . .  	L BYTE	0001	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  4_4		
+
+
+     23 Source  Lines
+     23 Total   Lines
+     10 Symbols
+
+  50152 + 416312 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

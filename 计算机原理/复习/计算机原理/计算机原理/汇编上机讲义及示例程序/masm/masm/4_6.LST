@@ -1,0 +1,56 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/16/9                                                             Page     1-1
+
+
+ 0000				DATA  SEGMENT 
+ 0000  ????				 SUM  DW  ? 
+ 0002  ????				 CN   DW  ? 
+ 0004				DATA     ENDS 
+ 0000				CODE  SEGMENT 
+					ASSUME  CS:CODE,DS:DATA 
+ 0000  B8 ---- R		START:  MOV  AX,DATA 
+ 0003  8E D8				MOV  DS,AX      ;初始化 
+ 0005  B8 0000				MOV  AX,0       ;0送AX 
+				 
+ 0008  BB 0000				MOV  BX,0       ;0送BX 
+ 000B  43			LP:     INC  BX     ;BX加1 
+ 000C  03 C3				ADD  AX,BX      ;求累加和 
+ 000E  3D 03E8				CMP  AX,1000    ;比较  
+ 0011  76 F8				JBE  LP         ;≤1000转 
+ 0013  A3 0000 R			MOV  SUM,AX 
+ 0016  89 1E 0002 R			MOV  CN,BX      ;送结果 
+ 001A  B4 4C				MOV  AH,4CH 
+ 001C  CD 21				INT  21H        ;返回DOS 
+ 001E				CODE    ENDS  
+					END  START      ;汇编结束 
+Microsoft (R) Macro Assembler Version 5.00                  4/16/9                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	001E	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0004	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+CN . . . . . . . . . . . . . . .  	L WORD	0002	DATA
+
+LP . . . . . . . . . . . . . . .  	L NEAR	000B	CODE
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+SUM  . . . . . . . . . . . . . .  	L WORD	0000	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  4_6		
+
+
+     21 Source  Lines
+     21 Total   Lines
+      8 Symbols
+
+  50228 + 416236 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

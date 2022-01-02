@@ -1,0 +1,15 @@
+ function z=sq(m)
+
+err=10^-6;
+
+Yn=m;
+
+Yn1=1/2*(Yn+m/Yn)
+
+While abs(Yn-Yn1) > err
+
+Yn=Yn1;
+
+Yn1=1/2*(Yn+m/Yn);
+
+end

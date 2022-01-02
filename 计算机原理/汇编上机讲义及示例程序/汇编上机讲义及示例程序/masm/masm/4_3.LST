@@ -1,0 +1,53 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/13/9                                                             Page     1-1
+
+
+ 0000				DATA	SEGMENT 
+ 0000  F1			     	X      	DB  -15 
+ 0001  ??			      	RESULT 	DB  ? 
+ 0002				DATA	ENDS 
+ 0000				CODE	SEGMENT 
+				      	ASSUME  DS:DATA,CS:CODE 
+ 0000  B8 ---- R		START:	MOV	AX,DATA 
+ 0003  8E D8			      	MOV	DS,AX 	;初始化 
+ 0005  A0 0000 R		      	MOV	AL,X  	;X取到AL中 
+ 0008  A8 80				TEST    AL,80H  ;测试AL正负 
+ 000A  74 02			        JZ NEXT         ;为正，转NEXT 
+ 000C  F6 D8			        NEG AL  	;否则AL求补 
+ 000E  A2 0001 R		NEXT:	MOV 	RESULT,AL	;送结果 
+ 0011  B4 4C			      	MOV 	AH,4CH 
+ 0013  CD 21			      	INT 	21H 	;返回DOS 
+ 0015				CODE	ENDS 
+				        END   START     ;汇编结束 
+Microsoft (R) Macro Assembler Version 5.00                  4/13/9                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0015	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0002	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	000E	CODE
+
+RESULT . . . . . . . . . . . . .  	L BYTE	0001	DATA
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+X  . . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  4_3		
+
+
+     17 Source  Lines
+     17 Total   Lines
+      8 Symbols
+
+  50192 + 416096 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

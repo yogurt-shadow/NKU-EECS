@@ -1,0 +1,39 @@
+STACK SEGMENT PARA STACK 'STACK'
+      DB 100 DUP(?)
+STACK ENDS
+
+CODE SEGMENT
+     ASSUME CS: CODE,SS:STACK
+START PROC FAR
+BEGIN: PUSH DS
+       MOV AX,0
+       PUSH AX
+       MOV BL,0
+       PUSH BX
+GOON:  MOV DL,20H
+       MOV AH,02H
+       INT 21H
+       POP BX
+       MOV AL,BL
+       INC AL
+       DAA
+       AND AL,0FH
+       MOV BL,AL
+       PUSH BX
+       OR AL,30H
+       MOV DL,AL
+       MOV AH,2
+       INT 21H
+       MOV CX,0FFFFH
+AGAIN: DEC CX
+       JNE AGAIN
+       JMP GOON
+       
+START  ENDP
+CODE   ENDS
+       END  BEGIN
+
+
+
+
+

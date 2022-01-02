@@ -1,0 +1,73 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/21/9                                                             Page     1-1
+
+
+       1 0000				STACK SEGMENT PARA STACK 'STACK' 
+       2 0000  0064[			      DB 100 DUP(?) 
+       3	    ??			
+       4			 ]	
+       5				
+       6 0064				STACK ENDS 
+       7				 
+       8 0000				CODE SEGMENT 
+       9				     ASSUME CS: CODE,SS:STACK 
+      10 0000				START PROC FAR 
+      11 0000  1E			BEGIN: PUSH DS 
+      12 0001  B8 0000			       MOV AX,0 
+      13 0004  50			       PUSH AX 
+      14 0005  B3 00			       MOV BL,0 
+      15 0007  53			       PUSH BX 
+      16 0008  B2 20			GOON:  MOV DL,20H 
+      17 000A  B4 02			       MOV AH,02H 
+      18 000C  CD 21			       INT 21H 
+      19 000E  5B			       POP BX 
+      20 000F  8A C3			       MOV AL,BL 
+      21 0011  FE C0			       INC AL 
+      22 0013  27			       DAA 
+      23 0014  24 0F			       AND AL,0FH 
+      24 0016  8A D8			       MOV BL,AL 
+      25 0018  53			       PUSH BX 
+      26 0019  0C 30			       OR AL,30H 
+      27 001B  8A D0			       MOV DL,AL 
+      28 001D  B4 02			       MOV AH,2 
+      29 001F  CD 21			       INT 21H 
+      30 0021  B9 FFFF			       MOV CX,0FFFFH 
+      31 0024  49			AGAIN: DEC CX 
+      32 0025  75 FD			       JNE AGAIN 
+      33 0027  EB DF			       JMP GOON 
+      34				        
+      35 0029				START  ENDP 
+      36 0029				CODE   ENDS 
+      37				       END  BEGIN 
+Microsoft (R) Macro Assembler Version 5.00                  4/21/9                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0029	PARA	NONE	
+STACK  . . . . . . . . . . . . .  	0064	PARA	STACK	'STACK'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+AGAIN  . . . . . . . . . . . . .  	L NEAR	0024	CODE
+
+BEGIN  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+GOON . . . . . . . . . . . . . .  	L NEAR	0008	CODE
+
+START  . . . . . . . . . . . . .  	F PROC	0000	CODE	Length = 0029
+
+@FILENAME  . . . . . . . . . . .  	TEXT  4_13		
+
+
+     34 Source  Lines
+     34 Total   Lines
+      8 Symbols
+
+  49678 + 416610 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

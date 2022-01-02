@@ -1,0 +1,40 @@
+DATA SEGMENT
+      BUFFER DW 1,2,3,5
+      COUNT EQU $-BUFFER
+      MAX   DW  ?
+DATA ENDS
+
+STACK SEGMENT PARA STACK 'STACK'
+      DB 64 DUP(?)
+      TOP   EQU $-STACK
+STACK ENDS
+
+CODE SEGMENT
+      ASSUME CS: CODE,DS:DATA,SS:STACK
+START PROC FAR
+BEGIN: PUSH DS
+       MOV AX,0
+       PUSH AX
+       MOV AX,DATA
+       MOV DS,AX
+       MOV SS,AX
+       MOV AX,TOP
+       MOV SP,AX
+       MOV CX,COUNT
+       LEA BX,BUFFER
+       MOV AX,[BX]
+       INC BX
+       INC BX
+
+       DEC CX
+      
+AGAIN: CMP AX,[BX]
+       JGE NEXT
+       MOV AX,[BX]
+NEXT:  INC BX
+       LOOP AGAIN
+       RET
+ START  ENDP
+CODE   ENDS
+END BEGIN
+ 

@@ -1,0 +1,198 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+ 
+\usepackage{fontspec}
+\setsansfont{楷体} % font name is case-sensitive
+\author{南开大学ACM算法协会}
+\begin{document}
+\title{NKPC16题解} 
+\frame{\titlepage}
+\section{绝对精度一句话题意}
+\begin{frame} {绝对精度}
+  将一个无限循环小数化简为分数
+\end{frame}
+\section{绝对精度题解}
+\begin{frame} {绝对精度}
+\begin{itemize}
+  \item 现在只截取循环部分的小数n=$0.q_1q_2q_3q_4...q_m...q_1q_2q_3q_4...q_m$
+  \item 假设这个分数的循环节长度为$m$，所以满足方程
+  $$
+  10^m*n-\overline{q_1q_2q_3q_4...q_m}=n
+  $$
+  \item 然后用分数解方程就行，主要用Python，并且处理好行末$\backslash$n字符
+\end{itemize}
+\end{frame}
+
+
+\section{无限空间一句话题意}
+\begin{frame} {无限空间}
+  计算$n$个平面在空间中最多能划分出几个无限大的空间
+\end{frame}
+\section{无限空间题解}
+\begin{frame} {无限空间}
+\begin{itemize}
+  \item 二维找找规律，并且拓展一下到三维，通项公式为$$a_n=n*(n-1)+2$$
+  \item 证明：
+  \item 考虑$g(n)$为二维平面n条交点不同的直线形成的无限区域个数
+  每一条新增直线最多产生两个无限区域，故$g(n)=2n$。
+  \item 对于新的一个平面，
+  原有的$n-1$个平面与之形成的交线在这个平面上
+  最多形成$g(n-1)$个无限平面区域
+  每个无限平面区域与新增的无限空间区域一一对应，
+  $f(n)=f(n-1)+g(n-1)$
+\end{itemize}
+\end{frame}
+
+\begin{frame} {无限空间}
+  \begin{itemize}
+    \item 平面区域到新增空间区域是双射的证明：
+    \item 首先所有无限平面两侧的两个空间一定是无界的，
+    因此肯定有一个新增的无限空间，因此是单射
+    \item 任意一个有限平面区域，如果对应了两个无限区域，
+    那么围成这个有限平面区域的几条线对应的平面，
+    在空间中构成了一个棱柱侧面状，这一定不是最优解，
+    所以最优解中新增的无限空间区域一定对应无限平面区域，
+    因此是满射
+  \end{itemize}
+  \end{frame}
+
+
+\section{FLAG之王2一句话题意}
+\begin{frame} {FLAG之王2}
+  给出一个$DAG$，问有多少种拓扑排序
+\end{frame}
+\section{FLAG之王2题解}
+\begin{frame} {FLAG之王2}
+\begin{itemize}
+  \item 经典的拓扑计数问题
+  \item $NPC$的问题，每次枚举入度为0的点拆下来，状压dp转移一下，
+  拆的时候判断一下合法性，每个状态表示当前被拆剩下的点的方案数
+  \item 时间复杂度$O(n*2^n)$
+\end{itemize}
+\end{frame}
+
+\section{能赢吗一句话题意}
+\begin{frame} {能赢吗}
+  给出$n$堆麦子，每堆有$a_i$个麦粒，两人轮流取麦粒，谁先取完谁赢，
+  后手可以先将一粒麦子从一个谷堆转移到另一个谷堆，他有必胜策略吗
+\end{frame}
+\section{能赢吗题解}
+\begin{frame} {能赢吗}
+\begin{itemize}
+  \item $Nim$游戏魔改，就是转移之后能不能使得
+  $a_1 \oplus a_2 \oplus ... \oplus a_n =0$
+  \item 增加或减少1个谷粒会使得二进制的后$k$位发生变化，
+  那移动一个谷粒会使n个谷堆数的异或二进制数的连续几个数位变化，
+  b赢需要n个谷堆异或值二进制数中只能有符合条件的一串连续的1
+\end{itemize}
+\end{frame}
+
+\section{虫洞一句话题意}
+\begin{frame} {虫洞}
+  给出一个图，每个顶点有物品，物品有质量，体积，价值，
+  自己的背包有容量限制，通过边时有质量限制，
+  从点1到点n能获得的最大价值。
+\end{frame}
+\section{虫洞题解}
+\begin{frame} {虫洞}
+\begin{itemize}
+  \item 图论+背包的题一般都是指数时间复杂度
+  \item 也是用状态压缩表示当前已经拿到的物品，
+  然后用$dfs$或者$bfs$在图上遍历搜索，
+  每次更新检测是否合法就行，注意重复状态的检查和自己的大常数
+  \item 时间复杂度$O(n*2^n)$
+\end{itemize}
+\end{frame}
+
+
+\section{物资分配一句话题意}
+\begin{frame} {物资分配}
+  需要$n$个物资，有四种资源$A,B,C,D$可以拿，其中$C,D$需要拿偶数件，
+  问有多少种方案
+\end{frame}
+\section{物资分配题解}
+\begin{frame} {物资分配}
+\begin{itemize}
+  \item 由生成函数的思想，答案为母函数$x^n$项系数
+  \item 
+  4种物资里两种无限制，它们的对应函数为
+  $$1+x+(x^2/2!)+…  =e^x$$
+  其余两种个数限制为偶数，对应的函数为
+  $$1+(x^2/2!)+(x^4/4!)+…  = (e^x+e^{-x})/2$$
+  把它们对应的函数乘起来，得到本题的生成函数：
+  $$\frac{e^{4x}+2e^{2x}+1}{4}$$
+  答案为$x^n$的系数乘以$n!$，为
+  $$\frac{4^n+2^{n+1}}{4}$$
+  \item 注意高精度
+\end{itemize}
+\end{frame}
+
+
+\section{魔法匹配一句话题意}
+\begin{frame} {魔法匹配}
+  给定一个模板串$s$，对每个查询串求$s$上有多少个等长的子串
+  满足本题设定的匹配规则
+\end{frame}
+\section{魔法匹配题解}
+\begin{frame} {魔法匹配}
+\begin{itemize}
+  \item 我们离线处理，对每种查询串的长度分别考虑，
+  首先可以通过滑动窗$O(n)$求出模板串$s$每个该长度的哈希值，
+  然后和每个该长度的查询串比较，得出答案。
+  \item 设查询串长度总和为$L$，可以得出查询串长度的种类是$O(\sqrt{L})$
+  \item 哈希比较根据不同的方法有$O(1)$和$O(\log{n})$
+  \item 总时间复杂度$O(n*\sqrt{L}*\log{n})$
+\end{itemize}
+\end{frame}
+
+
+\section{地下通道的规划一句话题意}
+\begin{frame} {地下通道的规划}
+  两个排列之间连线，所连接的数字之差的绝对值不能超过4，
+  并且连线不能交叉，端点也不能相交
+\end{frame}
+\section{地下通道的规划题解}
+\begin{frame} {地下通道的规划}
+\begin{itemize}
+  \item 先是二维$dp$
+  \item $f[i][j]$表示$A$的前$i$和$B$的前$j$个点最大连接数量
+  转移方程
+  $$
+    f[i][j]=max(
+      f[i-1][j],
+      f[i-1][j-1],
+      f[i-1][j-1]+1\text{ if } |A_i-B_j|\le 4)
+  $$
+  \item 优化之后将$f[i][j]$定义为$A_i,B_j$之间有连线的连线数
+  \item 然后转移公式类似，用线段树或树状数组处理一下即可
+\end{itemize}
+\end{frame}
+
+
+
+\section{我要成为传奇小白一句话题意}
+\begin{frame} {我要成为传奇小白}
+  给定一系列字符串，可以将它们首尾相接拼起来，
+  并且当$A$串的后缀和$B$串的前缀相同时，可以自行选择重叠长度
+\end{frame}
+\section{我要成为传奇小白题解}
+\begin{frame} {我要成为传奇小白}
+\begin{itemize}
+  \item 考虑到要拼接的字符串数很小，可以用$dp$来求解，
+  因为要每个串都选一次且只选一次，可以看作一个$TSP$问题，
+  利用状压$dp$来求解
+  \item 那么接下来的问题是怎么让拼接的长度最小且不包含负面效果的串，
+  也就是我们需要知道任意两个串拼起来的花费是多少，
+  知道了这项就可以直接进行$dp$求解
+\end{itemize}
+\end{frame}
+
+
+\begin{frame} {我要成为传奇小白}
+为了进行多字符串匹配，我们需要构建一个$AC$自动机，
+要用所有给定的初始字符串与负面效果串构建自动机，
+但是负面效果的串要做标记。而后在寻找两个串拼起来的花费时
+利用$spfa$在构建好的$Trie$上求解即可
+这时要注意把做过标记的负面效果匹配结果筛掉。
+\end{frame}
+\end{document}

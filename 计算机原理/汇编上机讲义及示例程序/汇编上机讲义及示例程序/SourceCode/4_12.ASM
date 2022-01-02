@@ -1,0 +1,29 @@
+DATA   SEGMENT
+BNUM   DW    0F78FH
+STRING  DB   16 DUP(?)
+DATA   ENDS
+STACK  SEGMENT PARA STACK 'STACK'
+       DB 100 DUP(?)
+STACK  ENDS
+CODE     SEGMENT
+          ASSUME  CS:CODE,DS:DATA,ES:DATA,SS:STACK
+START    PROC    FAR
+BEGIN:  PUSH    DS
+        MOV         AX,   0
+        PUSH        AX
+        MOV	AX,DATA
+	MOV	DS,AX	
+        MOV     ES,AX
+	LEA     DI,STRING   
+	MOV     CX,LENGTH STRING
+	MOV	AL,31H
+	MOV     BX,BNUM
+AGAIN:  RCL     BX,1
+	JNC     NEXT
+        MOV     [DI],AL              
+NEXT:   INC     DI
+        LOOP   AGAIN
+RET
+START    ENDP
+CODE	ENDS	;
+	END	BEGIN

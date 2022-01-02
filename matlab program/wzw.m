@@ -1,0 +1,2 @@
+open('AMxianggan');
+sim('AMxianggan');

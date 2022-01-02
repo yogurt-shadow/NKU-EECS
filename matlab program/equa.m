@@ -1,0 +1,21 @@
+%equa.m
+function dzdt=equa(t,z)
+dzdt=zeros(4,1);
+x=z(1);
+dx=z(2);
+y=z(3);
+dy=z(4);
+c1=5199.584;
+c2=380.016;
+c3=2458.04;
+m1=12.6665;
+m2=54.285;
+k1=35759.99;
+k2=17993.08;
+k3=-5076.26;
+ddy=c2*dx/m2-(c2+c3)*dy/m2+k2*x/m2-(k2+k3)*y/m2;
+ddx=-(c1+c2)/m1*dx+c2/m1*dy-(k1+k2)*x/m1+k2*y/m1+sin(t)/m1;
+dzdt(1)=dx;
+dzdt(2)=ddx;
+dzdt(3)=dy;
+dzdt(4)=ddy;

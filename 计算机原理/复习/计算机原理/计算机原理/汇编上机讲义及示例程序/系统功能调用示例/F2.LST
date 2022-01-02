@@ -1,0 +1,47 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/25/6                                                             Page     1-1
+
+
+       1 0000				DATA SEGMENT 
+       2 0000				DATA ENDS 
+       3 0000				STACK   SEGMENT STACK PARA STACK 'STACK
+					' 
+       4 0000				STACK   ENDS 
+       5 0000				CODE    SEGMENT 
+       6				        ASSUME  DS:DATA,CS:CODE,SS:STAC
+					K 
+       7 0000				START: 
+       8 0000  B2 5A			        MOV DL,'Z' 
+       9 0002  B4 02			        MOV AH,2 
+      10 0004  CD 21			        INT 21H 
+      11 0006  B4 4C			        MOV AH,4CH 
+      12 0008  CD 21			        INT 21H 
+      13 000A				CODE    ENDS 
+      14				END     START 
+Microsoft (R) Macro Assembler Version 5.00                  4/25/6                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	000A	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0000	PARA	NONE	
+STACK  . . . . . . . . . . . . .  	0000	PARA	STACK	'STACK'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  F2		
+
+
+     14 Source  Lines
+     14 Total   Lines
+      6 Symbols
+
+  49602 + 451390 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

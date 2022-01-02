@@ -1,0 +1,85 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/14/9                                                             Page     1-1
+
+
+ 0000				DATA    SEGMENT 
+ 0000  0002			X       DW      2 
+ 0002  0002			Y       DW      2 
+ 0004  0003			Z       DW      3 
+ 0006  000A			V       DW      10 
+ 0008  0002[			W       DW      2 DUP(?) 
+	   ????			
+			 ]	
+				
+ 000C				DATA    ENDS 
+ 0000				STACK   SEGMENT  STACK PARA STACK 'STACK' 
+ 0000  00C8[				DB   200  DUP(0) 
+	   00			
+			 ]	
+				
+ 00C8				STACK   ENDS 
+ 0000				CODE    SEGMENT 
+					ASSUME  DS:DATA,CS:CODE,SS:STACK 
+				 
+ 0000  B8 ---- R		START:  MOV     AX,SEG DATA 
+ 0003  8E D8				MOV     DS,AX   ;DATA¡úAX 
+ 0005  A1 0000 R			MOV     AX,X 
+ 0008  F7 2E 0002 R			IMUL    Y       ;(x)*(y)¡úDX:AX 
+ 000C  8B C8				MOV     CX,AX 
+ 000E  8B DA				MOV     BX,DX   ;(DX:AX)¡ú(BX:CX) 
+ 0010  A1 0004 R			MOV     AX,Z 
+ 0013  99				CWD     ;(Z) ·ûºÅÀ©Õ¹ 
+ 0014  03 C8				ADD     CX,AX 
+ 0016  13 DA				ADC     BX,DX   ;(BX:CX)+(DX:AX)¡ú(BX:C
+				X) 
+ 0018  83 E9 02				SUB     CX,2 
+ 001B  83 DB 00				SBB     BX,0    ;(BX:CX)-2¡ú(BX:CX) 
+ 001E  A1 0006 R			MOV     AX,V 
+ 0021  99				CWD     ;(V)·ûºÅÀ©Õ¹ 
+ 0022  2B C1				SUB     AX,CX 
+ 0024  1B D3				SBB     DX,BX   ;(DX:AX)-(BX:CX)¡ú(DX:A
+				X) 
+ 0026  F7 3E 0000 R			IDIV    X       ;(DX:AX)/X 
+ 002A  A3 0008 R			MOV     W,  AX   ;ÉÌ¡úW 
+ 002D  89 16 000A R			MOV     W+2,DX  ;ÓàÊýDX¡úW+2 
+ 0031  B4 4C				MOV     AH,4CH 
+ 0033  CD 21				INT     21H 
+ 0035				CODE    ENDS    ;ÍË³öDOS ×´Ì¬ 
+					END     START 
+Microsoft (R) Macro Assembler Version 5.00                  4/14/9                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0035	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	000C	PARA	NONE	
+STACK  . . . . . . . . . . . . .  	00C8	PARA	STACK	'STACK'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+V  . . . . . . . . . . . . . . .  	L WORD	0006	DATA
+
+W  . . . . . . . . . . . . . . .  	L WORD	0008	DATA	Length = 0002
+
+X  . . . . . . . . . . . . . . .  	L WORD	0000	DATA
+
+Y  . . . . . . . . . . . . . . .  	L WORD	0002	DATA
+
+Z  . . . . . . . . . . . . . . .  	L WORD	0004	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  4_1		
+
+
+     36 Source  Lines
+     36 Total   Lines
+     11 Symbols
+
+  50188 + 416276 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

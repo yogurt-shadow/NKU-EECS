@@ -1,0 +1,22 @@
+STACK SEGMENT PARA STACK 'STACK'
+      DW 10 DUP(?)
+STACK ENDS
+CODE SEGMENT
+      ASSUME CS:CODE,SS:STACK
+START: MOV CX,10
+       MOV SP,20
+  LP1: MOV AH,01H
+       INT 21H
+       MOV AH,0
+       PUSH AX
+   LOOP LP1
+       MOV CX,10
+  LP2: POP DX
+       MOV AH,02H
+       INT 21H
+  LOOP LP2             
+       MOV AH,4CH
+       INT 21H
+CODE   ENDS
+       END START
+

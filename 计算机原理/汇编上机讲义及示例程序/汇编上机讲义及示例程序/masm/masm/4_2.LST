@@ -1,0 +1,65 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/13/9                                                             Page     1-1
+
+
+ 0000				STACK   SEGMENT  STACK 
+ 0000  00C8[				DB      200 DUP(0) 
+	   00			
+			 ]	
+				
+ 00C8				STACK   ENDS 
+ 0000				DATA    SEGMENT 
+ 0000  50 55 56 47 4B 60 53		TAB     DB      80,85,86,71,75,96,83,56
+				,01,02,76,84 
+       38 01 02 4C 54		
+ 000C  0A				NO      DB      10 
+ 000D  ??				ENGLISH DB      ? 
+ 000E				DATA    ENDS 
+				 
+ 0000				CODE    SEGMENT 
+				ASSUME  DS:DATA,SS:STACK,CS:CODE 
+ 0000  B8 ---- R		BEGIN:  MOV     AX,DATA 
+ 0003  8E D8				MOV     DS,AX 
+ 0005  8D 1E 0000 R			LEA     BX,TAB  
+ 0009  A0 000C R			MOV     AL,NO 
+ 000C  FE C8				DEC     AL 
+ 000E  D7				XLAT    TAB 
+ 000F  A2 000D R			MOV     ENGLISH,AL 
+4_2.asm(18): warning A4001: Extra characters on line
+ 0012  B4 4C			        MOV     AH,4CH 
+ 0014  CD 21				INT     21H 
+ 0016				CODE    ENDS 
+					END BEGIN 
+Microsoft (R) Macro Assembler Version 5.00                  4/13/9                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0016	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	000E	PARA	NONE	
+STACK  . . . . . . . . . . . . .  	00C8	PARA	STACK	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BEGIN  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+ENGLISH  . . . . . . . . . . . .  	L BYTE	000D	DATA
+
+NO . . . . . . . . . . . . . . .  	L BYTE	000C	DATA
+
+TAB  . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  4_2		
+
+
+     22 Source  Lines
+     22 Total   Lines
+      9 Symbols
+
+  50226 + 416062 Bytes symbol space free
+
+      1 Warning Errors
+      0 Severe  Errors
